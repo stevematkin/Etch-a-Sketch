@@ -1,35 +1,51 @@
 //Declare variables and constants
 const container = document.querySelector('#container');
-const gridSize = document.createElement('div');
+const button = document.querySelector('#reset');
+button.addEventListener('click', clearAndResize);
 
+//create the grid from input size^2
+function createGrid(size){
+    //create divs (boxes in the grid)
+    for(i=0; i< size**2; i++){
+        let addBox = document.createElement('div');
+        addBox.classList.add('addBox');
+        container.appendChild(addBox);
 
+               
 
-
-
-function createGrid (rows, cols){
-    for (r = 0; r < rows; r++){
-        let addRow = document.createElement("div");
-        addRow.className = "grid-row";
-        addRow.style.height = (300 / cols) + "px";
-        addRow.style.width = (300/cols) + "px";
-        gridSize.appendChild(addRow);
         
-
-        for (c = 0; c < cols; c++){
-            let addColumn = document.createElement("div");
-            addColumn.className = "grid-column";
-            addColumn.style.height = (300 / cols) + "px";
-            addColumn.style.width = (300 / cols) + "px";
-            addRow.appendChild(addColumn);
-            
-        }
     }
-    container.appendChild(gridSize);    
-    
+    //makes each box in the grid equal in size
+    if(size){
+        container.style.gridTemplateColumns = "repeat(" + size + ",1fr)";
+        
+    }
+
+    //adds mouseover event to each box in the grid
+    const boxColor = document.querySelectorAll('div.addBox');
+    boxColor.forEach(boxColor => {
+        boxColor.addEventListener('mouseover', changeColor);
+    });
+    //change the background color of the div on mouseover event
+    function changeColor(e){
+        e.target.style.background = 'blue';
+    }
+      
 }
-createGrid(10, 10);
 
+createGrid(10);
 
+function clearAndResize() {
+    while (container.firstChild){
+        container.removeChild(container.firstChild);
+        
+    }
+    let size = prompt("Choose a size for the grid between 1 and 100");
+    while (size < 1 || size > 100){
+        size = prompt("Choose a size for the grid between 1 and 100");
+    }
+    createGrid(size);
+}
 
 
 
