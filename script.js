@@ -10,8 +10,7 @@ function createGrid(size){
         let addBox = document.createElement('div');
         addBox.classList.add('addBox');
         container.appendChild(addBox);
-
-               
+        
 
         
     }
@@ -32,9 +31,10 @@ function createGrid(size){
     }
       
 }
+//initial grid size
+createGrid(5);
 
-createGrid(10);
-
+//clear all divs inside container and resize from user input
 function clearAndResize() {
     while (container.firstChild){
         container.removeChild(container.firstChild);
